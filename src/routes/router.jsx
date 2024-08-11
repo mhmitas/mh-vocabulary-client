@@ -5,6 +5,7 @@ import SignIn from "../pages/auth/SignIn";
 import SemiPrivetRoute from "./SemiPrivetRoute";
 import SignUp from "../pages/auth/SignUp";
 import Document from "../pages/document/Document";
+import WordPage from "../pages/document/WordPage";
 
 export const router = createBrowserRouter([
     {
@@ -19,7 +20,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: "document/:id",
-                element: <Document />
+                element: <Document />,
+            },
+            {
+                path: "word/:id",
+                element: <WordPage />
             }
         ]
     },

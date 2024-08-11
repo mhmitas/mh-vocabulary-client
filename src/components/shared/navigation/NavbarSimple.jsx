@@ -13,7 +13,7 @@ const NavbarSimple = () => {
                 </button>
             </div>
             <div className="flex-1">
-                <a className="btn btn-ghost text-xl">daisyUI</a>
+                <Link to="/" className="btn btn-ghost text-xl font-bold">MhVocabulary</Link>
             </div>
             <div className="flex-none">
                 <UserSection />
