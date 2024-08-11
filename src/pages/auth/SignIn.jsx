@@ -1,13 +1,27 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { axiosInstance } from '../../hooks/useAxiosSecure';
+import useAuth from '../../hooks/useAuth';
 
 const SignIn = () => {
+    const { setUser, setAuthLoading } = useAuth()
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate()
 
-    const onSubmit = (data) => {
-        console.log(data);
-        // Handle sign-in logic here
+    const onSubmit = async (data) => {
+        try {
+            const res = await axiosInstance.post(`/sign-in`, data)
+            console.log(res.data?.user);
+            if (res?.data?.user) {
+                setUser(res?.data?.user)
+                setAuthLoading(false)
+                navigate("/")
+            }
+        } catch (error) {
+            console.error("sign up error:", error);
+            setAuthLoading(false)
+        }
     };
 
     return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-import { axiosInstance } from '../../hooks/useAxios';
+import { Link, useNavigate } from 'react-router-dom';
+import { axiosInstance } from '../../hooks/useAxiosSecure';
 
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -10,7 +10,6 @@ const SignUp = () => {
         try {
             const res = await axiosInstance.post(`/register`, data)
             console.log(res.data);
-
         } catch (error) {
             console.error("sign up error:", error);
         }

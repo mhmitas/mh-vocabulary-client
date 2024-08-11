@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { Navigate } from "react-router-dom";
+import { AuthContext } from '../providers/AuthProvider';
 
 const SemiPrivetRoute = ({ children }) => {
-    const user = false
-    const loading = false
+    const { user, authLoading } = useContext(AuthContext)
 
-    if (loading) {
+    if (authLoading) {
         return <LoadingSpinner />
     }
 

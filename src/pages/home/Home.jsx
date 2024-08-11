@@ -1,11 +1,14 @@
 import React from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FaRegFileAlt } from 'react-icons/fa';
+import useAuth from '../../hooks/useAuth';
 
 const Home = () => {
+    const { user } = useAuth()
+
     return (
         <section className='my-container h-screen flex flex-col py-4'>
-            <h1 className='text-center text-3xl font-bold text-primary mb-6'>Your Workspace</h1>
+            <h1 className='text-center text-3xl font-bold text-primary mb-6'>Hi! {user?.name?.split(" ")?.[0]}</h1>
             <div className='flex justify-center mb-4'>
                 <label className="input input-bordered flex items-center gap-2 max-w-xs w-full input-sm p-4 text-lg rounded">
                     <input type="text" className="grow" placeholder="Search" />
