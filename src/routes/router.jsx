@@ -4,6 +4,7 @@ import Home from "../pages/home/Home";
 import SignIn from "../pages/auth/SignIn";
 import SemiPrivetRoute from "./SemiPrivetRoute";
 import SignUp from "../pages/auth/SignUp";
+import Document from "../pages/document/Document";
 
 export const router = createBrowserRouter([
     {
@@ -15,6 +16,10 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 element: <Home />
+            },
+            {
+                path: "document/:id",
+                element: <Document />
             }
         ]
     },

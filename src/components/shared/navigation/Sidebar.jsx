@@ -6,8 +6,9 @@ const Sidebar = () => {
     const { user, logOutUser } = useAuth()
 
     return (
-        <aside className='w-64 h-screen bg-base-200 flex flex-col'>
-            <Link to="/" className="btn btn-ghost normal-case text-2xl font-bold m-4">MhVocabulary</Link>
+        <aside className='w-64 h-screen bg-base-100 flex flex-col  overflow-auto'>
+            {/* <Link to="/" className="btn btn-ghost normal-case text-2xl font-bold m-4">MhVocabulary</Link> */}
+            <Link to="/" className="text-2xl font-bold p-4">MhVocabulary</Link>
             <div className='flex-1 flex flex-col'>
                 <ul className='menu flex-1'>
                     <li><NavLink to="/">Link 1</NavLink></li>
