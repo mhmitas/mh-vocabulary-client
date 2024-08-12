@@ -15,7 +15,7 @@ const Document = () => {
         queryKey: [`word-collections-page-${id}`],
         queryFn: async () => {
             const { data } = await axiosSecure(`/collections/${id}`)
-            console.log(data);
+            // console.log(data);
             return data
         }
     })
@@ -39,7 +39,7 @@ export default Document;
 function CollectionCard({ collection }) {
 
     return (
-        <Link to={`/collection/${collection?._id}`}>
+        <Link to={`/collection/${collection?._id}?name=${collection?.name}`}>
             <div className='flex justify-between text-lg py-3 px-5 rounded-lg bg-base-200 hover:bg-base-300 duration-700 max-w-xl mx-auto mb-2'>
                 <span>{collection?.name}</span>
                 {/* <span>12 August 2024</span> */}
