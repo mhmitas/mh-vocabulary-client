@@ -28,7 +28,7 @@ const WordComponent = ({ word, currentIndex, setCurrentIndex, totalWords, setSho
                 }
                 <button onClick={() => setShowDetail(!showDetail)} className='btn btn-sm btn-warning
                  w-max rounded absolute top-2 right-2 btn-outline'>{showDetail ? "Hide Detail" : "Show Details"}</button>
-                <button onClick={() => setShowSlideComponent(false)} className='btn btn-sm btn-ghost btn-circle text-xl absolute top-1 left-1'><GoX /></button>
+                <button onClick={() => setShowSlideComponent(false)} className='btn btn-sm btn-ghost btn-circle text-2xl absolute top-1 left-1'><GoX /></button>
             </div>
             <div className='flex justify-end gap-2'>
                 <button onClick={handlePrevious} className='btn btn-sm rounded btn-primary'>Previous</button>

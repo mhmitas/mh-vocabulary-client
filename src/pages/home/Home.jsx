@@ -1,6 +1,6 @@
 import React from 'react';
-import { AiOutlinePlus, AiOutlineSearch } from 'react-icons/ai';
-import { FaRegFileAlt } from 'react-icons/fa';
+import { AiOutlineSearch } from 'react-icons/ai';
+import { FaPlus, FaRegFileAlt } from 'react-icons/fa';
 import useAuth from '../../hooks/useAuth';
 import { Link } from 'react-router-dom';
 import { useQuery } from "@tanstack/react-query";
@@ -32,7 +32,10 @@ const Home = () => {
                     <AiOutlineSearch />
                 </label>
             </div>
-            <div className='max-w-lg border border-base-300 mx-auto bg-base-200 p-4 sm:p-6 rounded-lg w-full flex-1 flex flex-col gap-1 overflow-auto relative'>
+            <div className='max-w-lg border border-base-300 mx-auto bg-base-200 p-4 sm:p-6 rounded-lg w-full flex-1 flex flex-col gap-3 overflow-auto relative'>
+                <button className='btn text-lg btn-sm rounded mb-2 btn-primary'>
+                    Add Document<FaPlus />
+                </button>
                 {isLoading && <LoadingSpinner />}
                 {documents.map(doc => <DocumentCard key={doc?._id} document={doc} />)}
             </div>
