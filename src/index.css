@@ -7,13 +7,13 @@
 }
 
 .title-1 {
-    @apply text-center text-3xl font-bold text-primary
+    @apply text-center text-2xl sm:text-3xl font-bold text-primary
 }
 
 .title-2 {
-    @apply text-center text-2xl font-bold
+    @apply text-center text-xl sm:text-2xl font-bold
 }
 
 .title-3 {
-    @apply text-center text-xl font-bold
+    @apply text-center text-lg sm:text-xl font-bold
 }

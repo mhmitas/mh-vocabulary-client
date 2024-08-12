@@ -32,7 +32,7 @@ const Home = () => {
                     <AiOutlineSearch />
                 </label>
             </div>
-            <div className='max-w-lg border border-base-300 mx-auto bg-base-200 p-6 rounded-lg text-lg w-full flex-1 flex flex-col gap-2 overflow-auto relative'>
+            <div className='max-w-lg border border-base-300 mx-auto bg-base-200 p-4 sm:p-6 rounded-lg w-full flex-1 flex flex-col gap-1 overflow-auto relative'>
                 {isLoading && <LoadingSpinner />}
                 {documents.map(doc => <DocumentCard key={doc?._id} document={doc} />)}
             </div>
@@ -44,6 +44,11 @@ export default Home;
 
 const DocumentCard = ({ document }) => {
     return (
-        <Link to={`/document/${document?._id}?name=${document?.name}`}><div className='flex items-center gap-1 hover:link'><FaRegFileAlt />{document?.name}</div></Link>
+        <Link to={`/document/${document?._id}?name=${document?.name}`}>
+            <div className='flex items-center gap-2 bg-base-100 py-2 px-3 rounded-md sm:text-xl '>
+                <FaRegFileAlt className="text-success" />
+                <p className='line-clamp-2 flex-1'>{document?.name}</p>
+            </div>
+        </Link>
     )
 }

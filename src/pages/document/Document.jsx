@@ -40,7 +40,7 @@ function CollectionCard({ collection }) {
 
     return (
         <Link to={`/collection/${collection?._id}?name=${collection?.name}`}>
-            <div className='flex justify-between text-lg py-3 px-5 rounded-lg bg-base-200 hover:bg-base-300 duration-700 max-w-xl mx-auto mb-2'>
+            <div className='flex justify-between text-base sm:text-lg py-2 sm:py-3 px-3 sm:px-5 rounded-lg bg-base-200 hover:bg-base-300 max-w-xl mx-auto mb-2'>
                 <span>{collection?.name}</span>
                 {/* <span>12 August 2024</span> */}
             </div>
