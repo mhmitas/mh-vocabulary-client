@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FaPlus, FaRegFileAlt } from 'react-icons/fa';
 import useAuth from '../../hooks/useAuth';
@@ -6,10 +6,13 @@ import { Link } from 'react-router-dom';
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from '../../hooks/useAxios';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
+import CreateDocumentModal from '../../components/modals/CreateDocumentModal';
 
 const Home = () => {
     const { user } = useAuth()
     const axiosSecure = useAxiosSecure()
+    // const [showModal,setShowModal] = useState(false)
+    const [showCreateModal, setShowCreateModal] = useState(false)
 
     const { data: documents = [], error, isLoading } = useQuery({
         queryKey: [`document-lists`, user?._id],
@@ -33,12 +36,13 @@ const Home = () => {
                 </label>
             </div>
             <div className='max-w-lg border border-base-300 mx-auto bg-base-200 p-4 sm:p-6 rounded-lg w-full flex-1 flex flex-col gap-3 overflow-auto relative'>
-                <button className='btn text-lg btn-sm rounded mb-2 btn-primary'>
+                <button onClick={() => setShowCreateModal(true)} className='btn text-lg btn-sm rounded mb-2 btn-primary'>
                     Add Document<FaPlus />
                 </button>
                 {isLoading && <LoadingSpinner />}
                 {documents.map(doc => <DocumentCard key={doc?._id} document={doc} />)}
             </div>
+            {showCreateModal && <CreateDocumentModal setShowModal={setShowCreateModal} />}
         </section>
     );
 };

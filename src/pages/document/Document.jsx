@@ -1,12 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import useAxiosSecure from '../../hooks/useAxios';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import { FaPlus } from 'react-icons/fa';
+import CreateCollectionModal from '../../components/modals/CreateCollectionModal';
 
 
 const Document = () => {
+    const [showCreteModal, setShowCreteModal] = useState(false)
     const [searchParams] = useSearchParams()
     const { id } = useParams()
     const axiosSecure = useAxiosSecure()
@@ -28,10 +30,11 @@ const Document = () => {
         <section className='my-container'>
             <h1 className='title-1 mb-6'>{title}</h1>
             <div className='relative bg-base-300 p-4 sm:p-6 rounded-lg flex flex-col gap-3'>
-                <button className='btn btn-primary btn-sm w-max rounded'>Add New Collection<FaPlus /></button>
+                <button onClick={() => setShowCreteModal(true)} className='btn btn-primary btn-sm w-max rounded'>Add New Collection<FaPlus /></button>
                 {isLoading && <LoadingSpinner />}
                 {collections.map(coll => <CollectionCard key={coll?._id} collection={coll} />)}
             </div>
+            {showCreteModal && <CreateCollectionModal setShowModal={setShowCreteModal} />}
         </section>
     );
 };
