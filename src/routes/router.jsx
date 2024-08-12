@@ -6,6 +6,7 @@ import SemiPrivetRoute from "./SemiPrivetRoute";
 import SignUp from "../pages/auth/SignUp";
 import Document from "../pages/document/Document";
 import WordPage from "../pages/document/WordPage";
+import Collection from "../pages/document/Collection";
 
 export const router = createBrowserRouter([
     {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
             {
                 path: "document/:id",
                 element: <Document />,
+            },
+            {
+                path: "collection/:id",
+                element: <Collection />
             },
             {
                 path: "word/:id",
