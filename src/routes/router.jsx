@@ -10,6 +10,7 @@ import Collection from "../pages/document/Collection";
 import AddNewWordPage from "../pages/AddNewWordPage";
 import Experiment from "../pages/Experiment";
 import EditAWordPage from "../pages/EditAWordPage";
+import ErrorPage from "../pages/error/ErrorPage";
 
 export const router = createBrowserRouter([
     {
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
         element: <SemiPrivetRoute>
             <Root />
         </SemiPrivetRoute>,
+        errorElement: <ErrorPage />,
         children: [
             {
                 index: true,

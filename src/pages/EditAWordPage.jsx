@@ -12,17 +12,18 @@ const EditAWordPage = () => {
     const axiosSecure = useAxiosSecure()
     const { handleSubmit, register } = useForm()
     const { wordId } = useParams()
+    // parts of speech state
+    const [partsOfSpeeches, setPartsOFSpeeches] = useState([])
 
     const { data: word = {}, error, isLoading } = useQuery({
         queryKey: [`edit-word-page-${wordId}`],
         queryFn: async () => {
             const { data } = await axiosSecure(`/words/word/${wordId}`)
-            // console.log(data);
+            // console.log(data.pos);
+            setPartsOFSpeeches(() => [...data?.pos])
             return data
         }
     })
-    // parts of speech state
-    const [partsOfSpeeches, setPartsOFSpeeches] = useState(word?.pos ? [...word?.pos] : [])
 
 
     async function onSubmit(data) {
@@ -91,7 +92,7 @@ const EditAWordPage = () => {
                 <div className='form-controller'>
                     <label className='label label-text'>Definitions *</label>
                     <TextareaAutosize
-                        {...register("definitions")} defaultValue={word?.definitions} required
+                        {...register("definitions")} defaultValue={word?.definitions?.join("\n")} required
                         className='textarea textarea-bordered resize-none w-full'
                         minRows={2}
                     />
@@ -99,14 +100,14 @@ const EditAWordPage = () => {
                 <div className='form-controller'>
                     <label className='label label-text'>Meanings *</label>
                     <TextareaAutosize
-                        {...register("meanings")} defaultValue={word?.meanings} required
+                        {...register("meanings")} defaultValue={word?.meanings?.join("\n")} required
                         className='textarea textarea-bordered resize-none w-full'
                     />
                 </div>
                 <div className='form-controller'>
                     <label className='label label-text'>Example sentences *</label>
                     <TextareaAutosize
-                        {...register("exampleSentences")} defaultValue={word?.exampleSentences} required
+                        {...register("exampleSentences")} defaultValue={word?.exampleSentences?.join("\n")} required
                         className='textarea textarea-bordered resize-none w-full'
                         minRows={2}
                     />
@@ -122,7 +123,7 @@ const EditAWordPage = () => {
                 <div className='form-controller'>
                     <label className='label label-text'>Notes</label>
                     <TextareaAutosize
-                        {...register("notes")} defaultValue={word?.notes}
+                        {...register("notes")} defaultValue={word?.notes?.join("\n")}
                         className='textarea textarea-bordered resize-none w-full'
                         minRows={2}
                     />

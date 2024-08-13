@@ -56,7 +56,7 @@ const DocumentCard = ({ document, refetch }) => {
 
     async function handleDelete() {
         try {
-            const ask = await deleteConfirm("Are you sure you want to delete this document?")
+            const ask = await deleteConfirm("Are you sure you want to delete this document?", "delete document")
             if (!ask) return;
             const { data } = await axiosSecure.delete(`/documents/delete/${document?._id}`)
             console.log(data);

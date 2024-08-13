@@ -41,12 +41,15 @@ const WordComponent = ({ word, currentIndex, setCurrentIndex, totalWords, setSho
 export default WordComponent;
 
 const WordDetails = ({ data }) => {
+    // console.log(data);
+    const linkWord = data.word?.split(" ")?.join("%20")
     return (
         <div className="mx-auto p-6 w-full">
             <div className="text-center mb-4">
                 <h1 className="text-3xl font-bold p-1">{data.word}</h1>
-                <p className="text-sm italic leading-3">{data.partOfSpeech}</p>
-                <p className="text-sm sm:text-base">{data.pronunciation}</p>
+                <p className="text-sm sm:text-base italic leading-3 flex gap-1 justify-center">{data.pos?.join(", ")}</p>
+                {data.pronunciation &&
+                    <p className="text-sm sm:text-base text-gray-400">{data.pronunciation}</p>}
             </div>
             {data.image &&
                 <div className="mb-4">
@@ -54,38 +57,52 @@ const WordDetails = ({ data }) => {
                 </div>}
             <div className='divider m-0'></div>
             <div className="mb-4">
+                <div><a target='_blank' className='italic font-semibold text-primary' href={`https://translate.google.com/?hl=en&tab=TT&sl=en&tl=bn&text=${linkWord}&op=translate`}>{data?.word}: [open in google translate]</a></div>
+            </div>
+            <div className="mb-4">
                 <h2 className="text-xl font-semibold">Definition</h2>
-                <p className="">{data.definition}</p>
+                <div className="space-y-2">
+                    {
+                        data.definitions.map((definition, index) => <p key={index}>{definition}</p>)
+                    }
+                </div>
+                <p className="">{data.definitions}</p>
             </div>
 
             <div className="mb-4">
-                <h2 className="text-xl font-semibold">Meaning</h2>
-                <p className="">{data.meaning}</p>
+                <h2 className="text-xl font-semibold">Meanings</h2>
+                <div className="space-y-2">
+                    {data.meanings.map((meaning, index) => <p key={index}>{meaning}</p>)}
+                </div>
             </div>
 
             <div className="mb-4">
                 <h2 className="text-xl font-semibold">Example Sentence</h2>
-                <p className=" italic">"{data.exampleSentences}"</p>
+                <div className="space-y-2 italic">
+                    {data.exampleSentences.map((sentence, index) => <p key={index}>{sentence}</p>)}
+                </div>
             </div>
+            {data?.synonyms &&
+                <div className="mb-4">
+                    <h2 className="text-xl font-semibold">Synonyms</h2>
+                    <p className="">{data.synonyms}</p>
+                </div>}
+            {data.antonyms &&
+                <div className="mb-4">
+                    <h2 className="text-xl font-semibold">Antonyms</h2>
+                    <p className="">{data.antonyms}</p>
+                </div>}
 
-            <div className="mb-4">
-                <h2 className="text-xl font-semibold">Note</h2>
-                <p className="">{data.note}</p>
-            </div>
-
-            <div className="mb-4">
-                <h2 className="text-xl font-semibold">Synonyms</h2>
-                <p className="">{data.synonyms}</p>
-            </div>
-
-            <div className="mb-4">
-                <h2 className="text-xl font-semibold">Antonyms</h2>
-                <p className="">{data.antonyms}</p>
-            </div>
-
-            <div className="text-sm">
-                <p>Created At: {new Date(data.createdAt).toLocaleString()}</p>
-            </div>
+            {data.notes.length > 0 &&
+                <div className="mb-4">
+                    <h2 className="text-xl font-semibold">Note</h2>
+                    <div className="space-y-1">
+                        {
+                            data.notes.map((note, index) => <p key={index}>{note}</p>)
+                        }
+                    </div>
+                </div>
+            }
         </div>
     );
 };
