@@ -34,7 +34,7 @@ export const router = createBrowserRouter([
                 element: <WordPage />
             },
             {
-                path: "add-new-word",
+                path: "add-new-word/:collectionId",
                 element: <AddNewWordPage />
             },
             {

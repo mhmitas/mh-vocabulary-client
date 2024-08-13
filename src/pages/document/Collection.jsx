@@ -40,7 +40,7 @@ const Collection = () => {
             <h3 className='title-3 mb-6 line-clamp-2'>{searchParams?.get("name") || "Words"}</h3>
             <div className='mb-6'>
                 <h3 className='text-lg mb-1'>Total: {words?.length}</h3>
-                <Link to="/add-new-word"><button className='btn btn-sm rounded btn-primary'>Add New Word<FaPlus /></button></Link>
+                <Link to={`/add-new-word/${id}`}><button className='btn btn-sm rounded btn-primary'>Add New Word<FaPlus /></button></Link>
             </div>
             <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
                 {words.map((word, index) => <WordCard

@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import { TextareaAutosize } from '@mui/base/TextareaAutosize';
 import { useForm } from "react-hook-form";
 import toast, { } from "react-hot-toast";
+import { replace, useNavigate, useParams } from 'react-router-dom';
+import useAxiosSecure from '../hooks/useAxios';
 
 const AddNewWordPage = () => {
+    const navigate = useNavigate()
+    const axiosSecure = useAxiosSecure()
     const { handleSubmit, register } = useForm()
     const [partsOfSpeeches, setPartsOFSpeeches] = useState([])
+    const { collectionId } = useParams()
 
     async function onSubmit(data) {
         if (partsOfSpeeches.length < 1) return toast.error("Select parts of speech");
@@ -16,10 +21,19 @@ const AddNewWordPage = () => {
         const pos = partsOfSpeeches;
         const doc = {
             ...data,
-            definitions, meanings, exampleSentences, notes, pos
+            definitions, meanings, exampleSentences, notes, pos,
+            collection: collectionId
         }
-        console.log(doc);
-
+        try {
+            const res = await axiosSecure.post(`/words/create-word`, doc)
+            console.log(res.data);
+            if (res.data?.insertedId) {
+                toast.success("New word added")
+                navigate(`/collection/${collectionId}`, { replace: true })
+            }
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     return (
