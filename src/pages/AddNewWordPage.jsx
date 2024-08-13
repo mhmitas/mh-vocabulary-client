@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TextareaAutosize } from '@mui/base/TextareaAutosize';
 import { useForm } from "react-hook-form";
 import toast, { } from "react-hot-toast";
-import { replace, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useAxiosSecure from '../hooks/useAxios';
 
 const AddNewWordPage = () => {
