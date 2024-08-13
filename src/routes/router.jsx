@@ -7,6 +7,8 @@ import SignUp from "../pages/auth/SignUp";
 import Document from "../pages/document/Document";
 import WordPage from "../pages/document/WordPage";
 import Collection from "../pages/document/Collection";
+import AddNewWordPage from "../pages/AddNewWordPage";
+import Experiment from "../pages/Experiment";
 
 export const router = createBrowserRouter([
     {
@@ -30,6 +32,14 @@ export const router = createBrowserRouter([
             {
                 path: "word/:id",
                 element: <WordPage />
+            },
+            {
+                path: "add-new-word",
+                element: <AddNewWordPage />
+            },
+            {
+                path: "experiment",
+                element: <Experiment />
             }
         ]
     },

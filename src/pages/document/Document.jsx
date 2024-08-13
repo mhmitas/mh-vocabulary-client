@@ -45,11 +45,20 @@ export default Document;
 function CollectionCard({ collection }) {
 
     return (
-        <Link to={`/collection/${collection?._id}?name=${collection?.name}`}>
-            <div className='flex justify-between text-base sm:text-lg py-2 sm:py-3 px-3 sm:px-5 rounded-lg bg-base-200 hover:bg-base-100'>
-                <span>{collection?.name}</span>
-                {/* <span>12 August 2024</span> */}
+        <div className='relative'>
+            <Link to={`/collection/${collection?._id}?name=${collection?.name}`}>
+                <div className='flex justify-between text-base sm:text-lg py-2 sm:py-3 px-3 sm:px-5 rounded-lg bg-base-200 hover:bg-base-100'>
+                    <span>{collection?.name}</span>
+                    {/* <span>12 August 2024</span> */}
+                </div>
+            </Link>
+            <div className="dropdown dropdown-end absolute top-1/4 right-1 ">
+                <button className='btn btn-sm text-lg font-bold btn-ghost mb-1'>⁝</button>
+                <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-lg z-[1] w-52 p-2 shadow">
+                    <li><button>Rename</button></li>
+                    <li><button>Delete</button></li>
+                </ul>
             </div>
-        </Link>
+        </div>
     )
 }
