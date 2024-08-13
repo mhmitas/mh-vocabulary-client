@@ -9,6 +9,7 @@ import WordPage from "../pages/document/WordPage";
 import Collection from "../pages/document/Collection";
 import AddNewWordPage from "../pages/AddNewWordPage";
 import Experiment from "../pages/Experiment";
+import EditAWordPage from "../pages/EditAWordPage";
 
 export const router = createBrowserRouter([
     {
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
             {
                 path: "add-new-word/:collectionId",
                 element: <AddNewWordPage />
+            },
+            {
+                path: "edit-word/:wordId",
+                element: <EditAWordPage />
             },
             {
                 path: "experiment",

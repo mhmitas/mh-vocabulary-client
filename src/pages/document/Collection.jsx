@@ -79,7 +79,7 @@ const WordCard = ({ word, index, setShowSlideComponent, showSlideComponent, setC
             <div className="dropdown dropdown-end absolute top-1 right-1 ">
                 <button className='btn btn-sm text-lg font-bold btn-ghost mb-1'>⁝</button>
                 <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-lg z-[1] w-52 p-2 shadow">
-                    <li><button>Edit</button></li>
+                    <li><Link to={`/edit-word/${word?._id}`}>Edit</Link></li>
                     <li><button>Delete</button></li>
                 </ul>
             </div>
