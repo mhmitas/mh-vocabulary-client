@@ -4,6 +4,9 @@ import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
 import useAxiosSecure from '../../hooks/useAxios';
 import WordComponent from '../../components/document/WordComponent';
+import deleteConfirm from '../../components/modals/confirm/deleteConfirm';
+import LoadingSpinner from '../../components/common/LoadingSpinner';
+import toast from 'react-hot-toast';
 
 const Collection = () => {
     const { id } = useParams()
@@ -12,7 +15,7 @@ const Collection = () => {
     const [showSlideComponent, setShowSlideComponent] = useState(false)
     const [currentIndex, setCurrentIndex] = useState(0)
 
-    const { data: words = [], error, isLoading } = useQuery({
+    const { data: words = [], error, isLoading, refetch } = useQuery({
         queryKey: [`word-page-${id}`],
         queryFn: async () => {
             const { data } = await axiosSecure(`/words/${id}`)
@@ -21,6 +24,9 @@ const Collection = () => {
         }
     })
 
+    if (isLoading) {
+        return <LoadingSpinner />
+    }
     if (error) console.error(error);
 
     if (showSlideComponent) {
@@ -50,6 +56,7 @@ const Collection = () => {
                     setShowSlideComponent={setShowSlideComponent}
                     showSlideComponent={showSlideComponent}
                     setCurrentIndex={setCurrentIndex}
+                    refetch={refetch}
                 />)}
             </div>
         </section>
@@ -58,7 +65,8 @@ const Collection = () => {
 
 export default Collection;
 
-const WordCard = ({ word, index, setShowSlideComponent, showSlideComponent, setCurrentIndex }) => {
+const WordCard = ({ word, index, setShowSlideComponent, showSlideComponent, setCurrentIndex, refetch }) => {
+    const axiosSecure = useAxiosSecure()
     const colors = ["#38858a", "#ba4949", "#397097", "#9b8238", "#7d53a2", "#af4e91", "#518a58", "#545764"]
     const bg = colors[Math.floor(Math.random() * colors?.length)]
 
@@ -71,6 +79,21 @@ const WordCard = ({ word, index, setShowSlideComponent, showSlideComponent, setC
         setCurrentIndex(index)
     }
 
+    async function deleteWord() {
+        try {
+            const ask = await deleteConfirm("Are you sure you want to delete this word?", `delete ${word?.word}`)
+            if (!ask) return;
+            const { data } = await axiosSecure.delete(`/words/delete/${word?._id}`)
+            console.log(data);
+            if (data?.deletedCount > 0) {
+                toast("Document deleted")
+                refetch()
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     return (
         <div className=' relative'>
             <div onClick={handleClick} style={bgStyle} className={`rounded-md sm:rounded-lg flex items-center justify-center text-xl sm:text-2xl font-semibold cursor-pointer hover:scale-[1.01] duration-500 card-body`}>
@@ -80,7 +103,7 @@ const WordCard = ({ word, index, setShowSlideComponent, showSlideComponent, setC
                 <button className='btn btn-sm text-lg font-bold btn-ghost mb-1'>⁝</button>
                 <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-lg z-[1] w-52 p-2 shadow">
                     <li><Link to={`/edit-word/${word?._id}`}>Edit</Link></li>
-                    <li><button>Delete</button></li>
+                    <li><button onClick={deleteWord}>Delete</button></li>
                 </ul>
             </div>
         </div>

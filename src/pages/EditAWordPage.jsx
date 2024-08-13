@@ -22,7 +22,7 @@ const EditAWordPage = () => {
         }
     })
     // parts of speech state
-    const [partsOfSpeeches, setPartsOFSpeeches] = useState([...word.pos])
+    const [partsOfSpeeches, setPartsOFSpeeches] = useState(word?.pos ? [...word?.pos] : [])
 
 
     async function onSubmit(data) {
