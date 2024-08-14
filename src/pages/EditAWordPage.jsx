@@ -14,6 +14,7 @@ const EditAWordPage = () => {
     const { wordId } = useParams()
     // parts of speech state
     const [partsOfSpeeches, setPartsOFSpeeches] = useState([])
+    const [processing, setProcessing] = useState(false)
 
     const { data: word = {}, error, isLoading } = useQuery({
         queryKey: [`edit-word-page-${wordId}`],
@@ -27,6 +28,7 @@ const EditAWordPage = () => {
 
 
     async function onSubmit(data) {
+        setProcessing(true)
         if (partsOfSpeeches.length < 1) return toast.error("Select parts of speech");
         let definitions = data.definitions.split("\n").filter(d => d !== "")
         let meanings = data.meanings.split("\n").filter(d => d !== "")
@@ -44,8 +46,11 @@ const EditAWordPage = () => {
                 toast.success("New word added")
                 navigate(-1, { replace: true })
             }
+            setProcessing(false)
         } catch (err) {
             console.error(err);
+            setProcessing(false)
+            toast.error(err?.response?.data?.message)
         }
     }
 
@@ -133,7 +138,9 @@ const EditAWordPage = () => {
                     <input {...register("image")} defaultValue={word?.image} type="text" className='input input-bordered w-full' />
                 </div>
                 <div className='text-center pt-2'>
-                    <button className='btn btn-sm rounded btn-primary'>Add</button>
+                    <button type='submit' disabled={processing} className='btn btn-sm rounded btn-primary'>
+                        {processing ? "Processing..." : "Update"}
+                    </button>
                 </div>
             </form>
         </section>

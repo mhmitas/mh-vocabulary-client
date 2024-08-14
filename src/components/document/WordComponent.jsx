@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { GoX } from "react-icons/go";
+import { SiGoogletranslate } from "react-icons/si";
+
 
 const WordComponent = ({ word, currentIndex, setCurrentIndex, totalWords, setShowSlideComponent }) => {
     const [showDetail, setShowDetail] = useState(false)
@@ -42,7 +44,7 @@ export default WordComponent;
 
 const WordDetails = ({ data }) => {
     // console.log(data);
-    const linkWord = data.word?.split(" ")?.join("%20")
+
     return (
         <div className="mx-auto p-6 w-full">
             <div className="text-center mb-4">
@@ -57,16 +59,20 @@ const WordDetails = ({ data }) => {
                 </div>}
             <div className='divider m-0'></div>
             <div className="mb-4">
-                <div><a target='_blank' className='italic font-semibold text-primary' href={`https://translate.google.com/?hl=en&tab=TT&sl=en&tl=bn&text=${linkWord}&op=translate`}>{data?.word}: [open in google translate]</a></div>
+                <div>
+                    <a target='_blank' className='flex items-center gap-2' href={`https://translate.google.com/details?sl=en&tl=bn&text=${data?.word}&op=translate&hl=en`}>
+                        <SiGoogletranslate />
+                        <span className='italic font-semibold text-primary'>{data?.word}</span>
+                    </a>
+                </div>
             </div>
             <div className="mb-4">
                 <h2 className="text-xl font-semibold">Definition</h2>
-                <div className="space-y-2">
+                <div className="space-y-1">
                     {
                         data.definitions.map((definition, index) => <p key={index}>{definition}</p>)
                     }
                 </div>
-                <p className="">{data.definitions}</p>
             </div>
 
             <div className="mb-4">

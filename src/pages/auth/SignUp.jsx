@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { axiosInstance } from '../../hooks/useAxiosSecure';
+import toast from "react-hot-toast";
 
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate()
+    const [processing, setProcessing] = useState(false)
 
     const onSubmit = async (data) => {
+        setProcessing(true)
         try {
             const res = await axiosInstance.post(`/register`, data)
             console.log(res.data);
+            if (res.data?.insertedId) {
+                navigate("/")
+            }
+            setProcessing(false)
         } catch (error) {
             console.error("sign up error:", error);
+            toast.error(error?.response?.data?.message)
+            setProcessing(false)
         }
     };
 
@@ -83,8 +93,8 @@ const SignUp = () => {
                         )}
                     </div>
 
-                    <button type="submit" className="btn btn-primary w-full">
-                        Sign Up
+                    <button type="submit" disabled={processing} className="btn btn-primary w-full">
+                        {processing ? <span className='loading loading-spinner text-primary'></span> : "Sign Up"}
                     </button>
                 </form>
                 <p className='mt-2'>Don't have an account? Please <Link to="/sign-in" className='link link-primary'>Sign in</Link></p>

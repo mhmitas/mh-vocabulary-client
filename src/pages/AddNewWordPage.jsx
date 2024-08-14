@@ -11,8 +11,10 @@ const AddNewWordPage = () => {
     const { handleSubmit, register } = useForm()
     const [partsOfSpeeches, setPartsOFSpeeches] = useState([])
     const { collectionId } = useParams()
+    const [processing, setProcessing] = useState(false)
 
     async function onSubmit(data) {
+        setProcessing(true)
         if (partsOfSpeeches.length < 1) return toast.error("Select parts of speech");
         let definitions = data.definitions.split("\n").filter(d => d !== "")
         let meanings = data.meanings.split("\n").filter(d => d !== "")
@@ -31,8 +33,11 @@ const AddNewWordPage = () => {
                 toast.success("New word added")
                 navigate(`/collection/${collectionId}`, { replace: true })
             }
+            setProcessing(false)
         } catch (err) {
             console.error(err);
+            toast.error(err?.response?.data?.message)
+            setProcessing(false)
         }
     }
 
@@ -115,7 +120,9 @@ const AddNewWordPage = () => {
                     <input {...register("image")} type="text" className='input input-bordered w-full' />
                 </div>
                 <div className='text-center pt-2'>
-                    <button className='btn btn-sm rounded btn-primary'>Add</button>
+                    <button type='submit' className='btn btn-sm rounded btn-primary' disabled={processing}>
+                        {processing ? "Processing..." : "Add"}
+                    </button>
                 </div>
             </form>
         </section>
