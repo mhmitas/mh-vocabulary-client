@@ -63,7 +63,7 @@ const SignIn = () => {
                             Password
                         </label>
                         <input
-                            type="text"
+                            type="password"
                             id="password"
                             className={`input input-bordered w-full ${errors.password && 'input-error'}`}
                             {...register('password', {
