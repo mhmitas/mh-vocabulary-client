@@ -31,7 +31,7 @@ const Document = () => {
     return (
         <section className='my-container'>
             <h1 className='title-1 mb-6'>{title}</h1>
-            <div className='relative bg-base-300 p-4 sm:p-6 rounded-lg flex flex-col gap-3 mb-16'>
+            <div className='relative bg-base-200 p-4 sm:p-6 rounded-lg flex flex-col gap-3 mb-16'>
                 <button onClick={() => setShowCreteModal(true)} className='btn btn-primary btn-sm w-max rounded'>Add New Collection<FaPlus /></button>
                 {isLoading && <LoadingSpinner />}
                 {collections.map(coll => <CollectionCard key={coll?._id} collection={coll} refetch={refetch} />)}
