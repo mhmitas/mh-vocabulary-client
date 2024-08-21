@@ -62,7 +62,7 @@ function CollectionCard({ collection, refetch }) {
         }
     }
     return (
-        <div className='relative'>
+        <div className='relative bg-base-100'>
             <Link to={`/collection/${collection?._id}?name=${collection?.name}`}>
                 <div className='flex justify-between text-base sm:text-lg py-2 sm:py-3 px-3 sm:px-5 rounded-lg bg-base-200 hover:bg-base-100 pr-5'>
                     <span>{collection?.name}</span>
